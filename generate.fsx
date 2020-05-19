@@ -22,7 +22,7 @@ let createProject (cnt : int) (file : string) =
             sprintf "        let rand = Random()"
             sprintf "        ["
             for i in 1 .. 40 do
-                sprintf "            if rand.NextDouble() > 0.5 then \"%05d\"" i
+                sprintf "            if rand.NextDouble() > 0.5 then yield \"%05d\"" i
                 
             sprintf "        ]"
         |])
