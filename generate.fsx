@@ -21,17 +21,16 @@ let createProject (cnt : int) (file : string) =
             sprintf "    let list ="
             sprintf "        let rand = Random()"
             sprintf "        ["
-            for i in 1 .. 200 do
+            for i in 1 .. 40 do
                 sprintf "            if rand.NextDouble() > 0.5 then \"%05d\"" i
                 
             sprintf "        ]"
-            sprintf "    let value = %d" i
         |])
 
     File.WriteAllLines(Path.Combine(dir, "Program.fs"), [
         "open Some"
         for i in 1 .. cnt do
-            sprintf "printfn \"%d: %%d\" File%03d.value" i i
+            sprintf "printfn \"%d: %%A\" File%03d.list" i i
     ])
     files.Add "Program.fs"
 
@@ -50,7 +49,7 @@ let createProject (cnt : int) (file : string) =
         "</Project>"
     ])
 
-createProject 2 (Path.Combine(__SOURCE_DIRECTORY__, "bla", "bla.fsproj"))
+createProject 1 (Path.Combine(__SOURCE_DIRECTORY__, "bla", "bla.fsproj"))
 
 
 

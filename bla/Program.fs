@@ -1,3 +1,2 @@
 open Some
-printfn "1: %d" File001.value
-printfn "2: %d" File002.value
+printfn "1: %A" File001.list
