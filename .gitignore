@@ -1,3 +1,4 @@
 /.ionide
 obj/
 bin/
+.DS_Store
