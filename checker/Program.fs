@@ -159,13 +159,14 @@ let main argv =
     match ProjectInfo.tryOfProject [] proj with
     | Ok info ->
         let options = checker.GetProjectOptionsFromCommandLineArgs(proj, List.toArray (ProjectInfo.toFscArgs info))
-        for f in info.files do
-            let c = File.ReadAllText f
-            let text = FSharp.Compiler.Text.SourceText.ofString c
-            let test = checker.ParseAndCheckFileInProject(f, 0, text, options, null)|> Async.RunSynchronously
-            printfn "done %s" f
-            ()
-            
+        async {
+            for f in info.files do
+                let c = File.ReadAllText f
+                let text = FSharp.Compiler.Text.SourceText.ofString c
+                let! test = checker.ParseAndCheckFileInProject(f, 0, text, options, null)
+                printfn "done %s" f
+                ()
+        } |> Async.RunSynchronously
         ()
     | Error err ->
         printfn "%A" err
